@@ -1,11 +1,15 @@
 package api
 
 import (
+	"io"
+	"log"
 	"net/http"
 )
 
-func main() {
-	http.HandleFunc("/workflows/create", handlers.workflowCreateHandler)
-
-	http.ListenAndServe(":5000", nil)
+func HandleREquests() {
+	route1 := func(w http.ResponseWriter, _ *http.Request) {
+		io.WriteString(w, "Welcome to your workflow!\n")
+	}
+	http.HandleFunc("/", route1)
+	log.Fatal(http.ListenAndServe(":8888", nil))
 }
